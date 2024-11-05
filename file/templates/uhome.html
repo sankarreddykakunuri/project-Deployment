@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Homepage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{% static 'file/images/hello.jpg' %}"); /* Set background image */
+            background-size: cover; /* Ensure the background image covers the entire page */
+            background-position: center;
+            background-attachment: fixed; /* Make the background fixed while scrolling */
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.8); /* Slight transparency */
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        nav .logo {
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-left: 1rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+
+        main {
+            padding: 2rem;
+            margin-top: 20px;
+        }
+
+        .auctions {
+            margin-bottom: 2rem;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .auctions h2 {
+            margin-top: 0;
+        }
+
+        .auction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .auction-item {
+            display: flex;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            align-items: center;
+        }
+
+        .auction-item img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+        .details {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .details p {
+            margin: 0.5rem 0;
+        }
+
+        .view-auction-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .view-auction-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: rgba(51, 51, 51, 0.8); /* Slight transparency */
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        .auctions.upcoming-auctions {
+            margin-bottom: 2rem;
+            background-image: url('{% static 'file/images/up.jpg' %}');
+            background-size: cover;
+            background-position: center;
+        }
+         .auctions.live-auctions {
+            margin-bottom: 2rem;
+            background-image: url('{% static 'file/images/up.jpg' %}');
+            background-size: cover;
+            background-position: center;
+
+        }
+         .auctions.closed-auctions {
+            margin-bottom: 2rem;
+            background-image: url('{% static 'file/images/up.jpg' %}');
+            background-size: cover;
+            background-position: center;
+
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Upcoming Auctions Slider */
+        .upcoming-auctions-slider {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .upcoming-auctions-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 200%;
+        }
+
+        .upcoming-auction-slide {
+            flex: 1 0 100%;
+        }
+
+        .upcoming-auction-slide .auction-item {
+            width: calc(30% - 20px);
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">My Bidding Platform</div>
+            <ul>
+                <li><a href="/categories">Categories</a></li>
+                <li><a href="/account">My Account</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Upcoming Auctions Section (with Slider) -->
+        <section class="auctions upcoming-auctions">
+            <h2>Upcoming Auctions</h2>
+            <div class="upcoming-auctions-slider">
+                <div class="upcoming-auctions-wrapper">
+                    <!-- First Slide -->
+                    <div class="upcoming-auction-slide">
+                        <div class="auction-item">
+                            <img src="{% static 'file/images/rolex.jpg' %}" alt="Rolex">
+                            <div class="details">
+                                <p>Product: Rolex Submariner</p>
+                                <p>Description: A luxury Rolex watch featuring automatic movement, water resistance, and a stylish black dial.</p>
+                                <p>Opening Price: Rs 500,000</p>
+                                <p>Start Time: Tomorrow 10:00 AM</p>
+                                <a href="{% url 'rolex' %}" class="view-auction-link">View Auction</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Second Slide -->
+                    <div class="upcoming-auction-slide">
+                        <div class="auction-item">
+                            <img src="{% static 'file/images/thar1.jpg' %}" alt="Thar">
+                            <div class="details">
+                                <p>Product: Mahindra Thar 2021</p>
+                                <p>Description: A rugged 4x4 SUV designed for off-road adventure, offering superior performance and style.</p>
+                                <p>Opening Price: Rs 10,000,000</p>
+                                <p>Start Time: Tomorrow 12:00 PM</p>
+                                <a href="{% url 'thar' %}" class="view-auction-link">View Auction</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Auctions Section -->
+        <section class="auctions live-auctions">
+            <h2>Live Auctions</h2>
+            <div class="auction-list">
+                <div class="auction-item">
+                    <img src="{% static 'file/images/harley.jpg' %}" alt="Harley">
+                    <div class="details">
+                        <p>Product: Harley-Davidson 1946 Model</p>
+                        <p>Description: A classic motorcycle in mint condition with custom restoration. Perfect for vintage collectors.</p>
+                        <p>Highest Bid: Rs 10,90,90,999</p>
+                        <p>Time Remaining: 2 hours</p>
+                        <a href="{% url 'bikedetails' %}" class="view-auction-link">View Details</a>
+                    </div>
+                </div>
+                <!-- Add more live auction items here -->
+            </div>
+        </section>
+
+        <!-- Closed Auctions Section -->
+        <section class="auctions closed-auctions">
+            <h2>Closed Auctions</h2>
+            <div class="auction-list">
+                <div class="auction-item">
+                    <img src="{% static 'file/images/car1.jpg' %}" alt="Vintage Car">
+                    <div class="details">
+                        <p>Product: 1950 Vintage Car</p>
+                        <p>Description: A beautifully restored vintage car, ideal for collectors and car enthusiasts alike.</p>
+                        <p>Final Bid: Rs 15,000,000</p>
+                        <p>Buyer: Sarah Sindh</p>
+                        <a href="{% url 'cardetails' %}" class="view-auction-link">View Auction</a>
+                    </div>
+                </div>
+                <!-- Add more closed auction items here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Contact us at: rtb@biddingplatform.com</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a>
+            <a href="/support">Support</a>
+            <a href="/terms">Terms of Service</a>
+        </div>
+    </footer>
+
+     <script>
+        let slideIndex = 0;
+
+        function showSlides() {
+            const sliderWrapper = document.querySelector('.upcoming-auctions-wrapper');
+            slideIndex++;
+            if (slideIndex >= 2) {
+                slideIndex = 0;
+            }
+            const offset = slideIndex * -100;  // Adjust the value to fit slide width
+            sliderWrapper.style.transform = 'translateX(' + offset + '%)';
+        }
+
+        setInterval(showSlides, 3000);  // Slide every 3 seconds
+    </script>
+</body>
+</html>

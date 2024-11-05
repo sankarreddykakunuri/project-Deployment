@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Auction Item: Rolex Watch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .upcoming-auction-item {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .auction-item {
+            display: flex;
+            align-items: center;
+        }
+        .auction-item img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        .details {
+            flex-grow: 1;
+        }
+        .view-auction-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .view-auction-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<section class="upcoming-auction-item">
+    <h2>Upcoming Auction: Rolex Submariner</h2>
+    <div class="auction-item">
+        <img src="{% static 'file/images/rolex.jpg' %}" alt="Rolex Submariner">
+        <div class="details">
+            <h3>Product: Rolex Submariner</h3>
+            <p><strong>Description:</strong> The Rolex Submariner is an iconic dive watch known for its exceptional durability and precision. It features a unidirectional rotating bezel, luminescent hour markers, and a water resistance of up to 300 meters, making it a favorite among divers and watch enthusiasts alike.</p>
+            <p><strong>Current Bid:</strong> Rs 2,500,000</p>
+            <p><strong>Start Time:</strong> Tomorrow 1:00 PM</p>
+            <p><strong>End Time:</strong> Tomorrow 4:00 PM</p>
+            <p><strong>History:</strong> Launched in 1953, the Rolex Submariner has a rich history as one of the first wristwatches designed specifically for underwater exploration. Over the decades, it has evolved through various updates while maintaining its classic design and functionality. The watch is renowned for its craftsmanship and has become a symbol of luxury and status.</p>
+            <a href="{% url 'uhome' %}" class="view-auction-link">View Auction</a>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
